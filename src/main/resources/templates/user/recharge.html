@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<head th:replace="model/head :: commonHead('充值')">
+</head>
+<body>
+<div th:replace="commons/bar :: navbar"></div>
+<div class="top-menu col-md-12">
+    <div class="clearfix"></div>
+</div>
+<div class="loginbox container">
+    <div class="content">
+        <div class="col-md-5 content-left">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th colspan="2">充值用户信息</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>用户头像</td>
+                    <td>
+                        <img width="100px" class="img-thumbnail"
+                             th:src="${session.user.header != null?'/public'+session.user.header.src:'/public/header/jinx.jpg'}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>用户ID</td>
+                    <td th:text="${session.user.id}"></td>
+                </tr>
+                <tr>
+                    <td>用户名</td>
+                    <td th:text="${session.user.name}"></td>
+                </tr>
+                <tr>
+                    <td>注册日期</td>
+                    <td th:text="${#dates.format(session.user.registerDate,'yyyy-MM-dd')}"></td>
+
+                </tr>
+                </tbody>
+            </table>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-5 content-right">
+            <form class="contact-form" action="/user/recharge" method="post">
+                <div class="input-group">
+                    <input type="number" name="money" class="form-control" placeholder="请输入要充值的金额$">
+                    <span class="input-group-btn">
+							<button class="btn btn-default" type="submit">一键充值</button>
+						</span>
+                </div>
+            </form>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div th:replace="model/js :: commonJs"></div>
+<div th:replace="model/footer :: footer"></div>
+</body>
+</html>

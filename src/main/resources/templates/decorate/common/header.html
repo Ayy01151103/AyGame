@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="head2" th:fragment="commonHeader">
+    <header class="header">
+        <div class="container">
+            <div class="header-area">
+                <div class="logo">
+                    <a href="#"><img
+                            th:src="@{/public/logo/logo.png}" alt="logo"></a>
+                </div>
+                <div class="header-right">
+                    <form action="/library/grid" method="get">
+                        <input type="text"  name="gameName" placeholder="输入要搜索的游戏名">
+                        <button th:text="搜索"></button>
+                    </form>
+                    <ul>
+                        <!--class="login-popup"-->
+                        <li><a href="#">Welcome Ayiyay!</a></li>
+                        <li th:if="${session.user == null}" role="presentation"><a  href="#"  th:href="@{/user/login}" >Login</a></li>
+                        <li th:if="${session.user != null}" role="presentation"><a  href="#"  th:href="@{/user/logout}" >注销</a></li>
+                        <li th:if="${session.user != null}" role="presentation"><a  href="#"  th:href="@{/user/details}" th:text="${session.user.name}" th:if="${session.user != null}"><span
+                                aria-hidden="true"></span></a></li>
+
+
+
+                    </ul>
+                </div>
+                <div class="menu-area">
+                    <div class="mainmenu">
+                        <ul id="primary-menu">
+                            <li><a th:class="${activeUri == 'index'?'active':''}" th:href="@{/index}">首页</a>
+                            </li>
+                            <li><a th:class="${activeUri == 'gamelist'?'active':''}" th:href="@{/library/grid}">游戏商店</a></li>
+                            <li><a th:class="${activeUri == 'gamehouse'?'active':''}" th:href="@{/user/library}">游戏仓库</a></li>
+                            <!--<li><a th:class="${activeUri == 'video'?'active':''}" >视频</a>
+                            </li>
+                            <li><a th:class="${activeUri == 'new'?'active':''}" >资讯</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+<!--    <div class="login-area">
+        <div class="login-box">
+            <a href="#"><i class="glyphicon glyphicon-remove"></i></a>
+            <h2 th:text="#{user.login}">LOGIN</h2>
+            <form action="/user/login">
+                <h6 >USERNAME OR EMAIL ADDRESS</h6>
+                <input type="text">
+                <h6>PASSWORD</h6>
+                <input type="text">
+                <div class="login-remember">
+                    <input type="checkbox">
+                    <span>Remember Me</span>
+                </div>
+                <div class="login-signup">
+                    <span>SIGNUP</span>
+                </div>
+                <a href="http://demo.demohuo.top/modals/52/5259/demo/#" class="theme-btn">LOG IN</a>
+                <span>Or Via Social</span>
+                <div class="login-social">
+                    <a href="http://demo.demohuo.top/modals/52/5259/demo/#"><i
+                            class="icofont icofont-social-facebook"></i></a>
+                    <a href="http://demo.demohuo.top/modals/52/5259/demo/#"><i
+                            class="icofont icofont-social-twitter"></i></a>
+                    <a href="http://demo.demohuo.top/modals/52/5259/demo/#"><i
+                            class="icofont icofont-social-linkedin"></i></a>
+                    <a href="http://demo.demohuo.top/modals/52/5259/demo/#"><i
+                            class="icofont icofont-social-google-plus"></i></a>
+                    <a href="http://demo.demohuo.top/modals/52/5259/demo/#"><i class="icofont icofont-camera"></i></a>
+                </div>
+            </form>
+        </div>
+    </div>-->
+</div>
+
+
+</body>
+</html>

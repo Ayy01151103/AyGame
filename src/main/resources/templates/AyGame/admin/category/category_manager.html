@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<head th:replace="AyGame/common/ayhead :: commonHead('Aygame用户管理')">
+<body class="page-sidebar-collapsed">
+<div class="page-container">
+    <div th:replace="AyGame/common/aypagesidebar :: pagesidebar(activeUri='category')"></div>
+    <div th:replace="AyGame/common/ayCpageheader :: pageheader(activeUri='category')"></div>
+    <div class="page-content">
+        <div th:replace="AyGame/admin/category/category_page_content :: content"></div>
+    </div>
+</div>
+<!--<div th:replace="AyGame/common/ayOther :: orther"></div>-->
+<!--<div th:replace="AyGame/common/ayfooter :: footer"></div>-->
+
+<!-- Javascripts -->
+<div th:replace="AyGame/common/ayJs :: jscode"></div>
+</body>
+</html>

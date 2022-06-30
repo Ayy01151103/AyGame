@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<head th:replace="AyGame/common/ayhead :: commonHead('AyGame')"></head>
+<body class="page-sidebar-collapsed">
+<!-- Modal -->
+<div th:fragment="modal">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1"
+         aria-labelledby="exampleModalLabel" style="display: none;"
+         _mstvisible="0" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
+            <div class="modal-content" _mstvisible="2">
+                <div class="modal-header" _mstvisible="3">
+                    <h5 class="modal-title" id="exampleModalCenterTitle"
+                        _msthash="552968" _msttexthash="13222534"
+                        _mstvisible="4">编辑</h5>
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="关闭"
+                            _mstaria-label="5889065"
+                            _mstvisible="4"></button>
+                </div>
+                    <div class="modal-body" _msthash="1109433"
+                         _msttexthash="106716571" _mstvisible="3">
+                        <label for="name" class="form-label" ></label>
+                        <input type="text" class="form-control" id="name" name="name"
+                               placeholder="请输入名称" required>
+                    </div>
+                    <div class="modal-footer" _mstvisible="3">
+                        <button type="submit" class="btn btn-primary" th:text="#{button.submit}"></button>
+                        <button type="reset" class="btn btn-warning">重置</button>
+                        <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal" _msthash="1623791"
+                                _msttexthash="5889065" _mstvisible="4">关闭
+                        </button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function edit(id) {
+        //根据ID查询出名称和备注，放到文本框
+        const url = "/admin/category/" + id;
+        $.ajax({
+            url: url,
+            type: "get",
+            dataType: "json",
+            success: function (res) {
+                $("#name").val(res.Name);
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

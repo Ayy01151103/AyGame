@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<head th:replace="AyGame/common/ayhead :: commonHead('AyGame')"></head>
+<body class="page-sidebar-collapsed">
+<div class="page-container">
+    <div th:replace="AyGame/common/aypagesidebar :: pagesidebar"></div>
+    <div th:replace="AyGame/common/ayCpageheader :: pageheader"></div>
+    <div class="page-content">
+        <div class="main-wrapper">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">编辑</h5>
+                            <form action="/admin/editUser" th:object="${user}" method="post">
+                                <!--发送put请求修改数据-->
+                                <!--
+                                1.springMVC中配置HiddenHttpMethodFilter(springboot自动配置好)
+                                2.页面创建一个post表单
+                                3.创建一个input项， name ="_method" ;值就是我们指定得请求方式
+                                -->
+                                <input type="hidden" name="_method" value="put"/>
+                                <input type="hidden" name="id" th:value="${user.id}"/>
+                                <div class="container">
+                                    <div class="row clearfix">
+                                        <div class="col-md-6 column mb-3">
+                                            <label for="id" class="form-label" th:text="#{user.fd_id}"></label>
+                                            <input type="text" class="form-control" id="id" name="id"
+                                                   th:value="${user.id}" readonly>
+                                        </div>
+                                        <div class="col-md-6 column mb-3">
+                                            <label for="name" class="form-label" th:text="#{user.fd_name}"></label>
+                                            <input type="text" class="form-control" id="name" name="name"
+                                                   th:value="${user.name}">
+                                        </div>
+                                        <!--                    <div class="col-md-6 column mb-3">
+                                                              <label for="userLoginName" class="form-label" th:text="#{user.fd_login_name}"></label>
+                                                              <input type="text" class="form-control" id="userLoginName" name="fdLoginName" th:value="${user.fdLoginName}">
+                                                            </div>-->
+                                        <div class="col-md-6 column mb-3">
+                                            <label for="password" class="form-label"
+                                                   th:text="#{user.fd_login_password}"></label>
+                                            <input type="text" class="form-control" id="password" name="password"
+                                                   th:value="${user.password}">
+                                        </div>
+                                        <div class="col-md-6 column mb-3">
+                                            <label for="money" class="form-label" th:text="#{user.fd_money}"></label>
+                                            <input type="text" class="form-control" id="money" name="money"
+                                                   th:value="${user.money}">
+                                        </div>
+                                        <div class="col-md-6 column mb-3">
+                                            <label for="registerDate" class="form-label"
+                                                   th:text="#{user.fd_register_time}"></label>
+                                            <input type="text" class="form-control" id="registerDate"
+                                                   name="registerDate"
+                                                   th:value="${#dates.format(user.registerDate,'yyyy-MM-dd HH:mm:ss')}"
+                                                   readonly>
+                                        </div>
+                                        <div class="col-md-6 column mb-3">
+                                            <label class="form-label" th:text="#{user.fd_id_Admin}"></label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="1" name="isAdmin"
+                                                       id="flexRadioDefault1" th:checked="${user.isAdmin==1}">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    管理员
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="0" name="isAdmin"
+                                                       id="flexRadioDefault2" th:checked="${user.isAdmin==0}">
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                    普通角色
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" th:text="#{button.submit}"></button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="AyGame/common/ayOther :: orther"></div>
+
+
+<!-- Javascripts -->
+<div th:replace="AyGame/common/ayJs :: jscode"></div>
+
+</body>
+</html>

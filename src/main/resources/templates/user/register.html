@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<head th:replace="model/head :: commonHead('注册')">
+</head>
+<style type="text/css">
+
+</style>
+<body>
+
+<div th:replace="commons/bar :: navbar"></div>
+<!--<div class="top-menu col-md-12">-->
+<!--    <div class="clearfix"></div>-->
+<!--    <script type="text/javascript" src="/public/js/bootstrap-3.1.1.min.js"></script>-->
+<!--</div>-->
+<div class="loginbox container">
+    <div class="loginbox-left">
+        <div class="loginbox_content col-md-4 col-lg-4">
+            <h2>创建用户</h2>
+            <br>
+            <form action="/user/register" th:object="${user}" onsubmit="return NameNotExist" method="post">
+                <div class="input-group input-group-lg">
+                    <div class="row">
+                        <span class="input-group-addon col-md-3" id="sizing-addon1">用户名</span>
+                        <input type="text" name="name" class="form-control col-md-8" placeholder="Username"
+                               onchange="checkName(this)" required aria-describedby="sizing-addon1">
+                        <span class="label label-warning" th:if="${#fields.hasErrors('name')}"
+                              th:errors="${${#fields.errors('name')}}"></span>
+
+                    </div>
+
+                </div>
+                <div class="input-group input-group-lg">
+                    <div class="row">
+                        <span class="input-group-addon col-md-3" id="sizing-addon2">密 码</span>
+                        <input type="password" name="password" class="form-control col-md-8" placeholder="Password"
+                               required="required" aria-describedby="sizing-addon2">
+                        <span class="label label-warning" th:if="${#fields.hasErrors('password')}"
+                              th:errors="${${#fields.errors('password')}}"></span>
+                    </div>
+
+                </div>
+                <div class="input-group input-group-lg">
+                    <div class="row">
+                        <span class="input-group-addon col-md-3" id="sizing-addon3">密 码</span>
+                        <input type="password" required="required" class="form-control col-md-8"
+                               placeholder="Password Again"
+                               aria-describedby="sizing-addon3">
+                    </div>
+
+                </div>
+                <button type="submit" class="btn btn-primary">注册</button>
+            </form>
+        </div>
+        <div class="loginbox_sep col-md-1"></div>
+        <!--        注册-->
+        <div class="loginbox_content col-md-4">
+            <h2>为什么加入 Yxm？</h2>
+            <ul id="why_list">
+                <li>marker加入Yxm社区</li>
+                <li>在任何电脑都能玩</li>
+                <li>游戏时与好友聊天</li>
+                <li>安排游戏，比赛，或LAN聚会</li>
+                <li>获取自动游戏更新及更多！</li>
+                <br>
+                <img src="/public/images/why_join_preview.png" width="265" height="176" border="0" alt="">
+            </ul>
+            <!--            <br>-->
+            <!--            <br>-->
+            <!--            <span id="join_sys_req_title">支持的操作系统</span>-->
+            <!--            <div id="join_sys_req">-->
+            <!--                Windows 7、8、8.1、10 或更新版本。<br><br>-->
+            <!--                Intel Mac、OS X 版本 10.11（El Capitan）或更新版本。<br><br>-->
+            <!--                Ubuntu Linux（最新版本）。<br><br>-->
+            <!--                互联网连接（推荐使用宽带）					</div>-->
+            <!--            <br>-->
+            <!--            <br>-->
+        </div>
+        <br>
+        <!--        <a href="#">更多</a>-->
+    </div>
+</div>
+<div th:replace="model/js :: commonJs"></div>
+<div th:replace="model/footer :: footer"></div>
+</body>
+</html>

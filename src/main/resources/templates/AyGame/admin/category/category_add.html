@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<head th:replace="AyGame/common/ayhead :: commonHead('AyGame')"></head>
+<body class="page-sidebar-collapsed">
+<div class="page-container">
+    <div th:replace="AyGame/common/aypagesidebar :: pagesidebar"></div>
+    <div th:replace="AyGame/common/ayCpageheader :: pageheader"></div>
+    <div class="page-content">
+        <div class="main-wrapper">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">添加</h5>
+                            <form th:action="@{/admin/category/add}" enctype="multipart/form-data" th:object="${category}" method="post">
+                                <div class="container">
+                                    <div class="row clearfix">
+                                        <div class="col-md-6 column mb-3">
+                                            <label for="name" class="form-label" th:text="#{category.name}"></label>
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="请输入名称" required>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" th:text="#{button.submit}"></button>
+                                    <button type="reset" class="btn btn-warning">重置</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="AyGame/common/ayOther :: orther"></div>
+
+
+<!-- Javascripts -->
+<div th:replace="AyGame/common/ayJs :: jscode"></div>
+
+</body>
+</html>

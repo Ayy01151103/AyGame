@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<head>
+    <!--  class="loginbox "  games。css-->
+    <link rel="stylesheet" th:href="@{/public/css/style3.css}">
+    <link rel="stylesheet" th:href="@{/public/css/plugins.css}">
+
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/public/css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/public/css/style4.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/public/css/Newstyle.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/public/css/lightbox.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/public/layui/css/layui.css}">
+
+</head>
+<body>
+<div th:replace="commons/bar :: navbar"></div>
+<div>
+    <div class="hero common-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="hero-ct">
+                        <h1> movie listing - grid</h1>
+                        <ul class="breadcumb">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><span class="ion-ios-arrow-right"></span> movie listing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-single">
+        <div class="container">
+            <div class="row ipad-width">
+                <div class="col-md-9 col-sm-12 col-xs-12">
+                    <div class="topbar-filter">
+                        <p>Found <span th:text="${pageInfo.total}">1,608 movies</span> in total</p>
+                        <label>Sort by:</label>
+                        <!--                        <select>-->
+                        <ul class="layui-nav" lay-filter="">
+                            <li class="layui-nav-item">
+                                <a href="javascript:;">游戏平台</a>
+                                <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                                    <a th:each="platform:${platforms}" href="" th:href="'/library?pid='+${platform.id}"
+                                       th:text="${platform.name}" class="list-group-item"><span
+                                            class="badge badge-success"></span>
+                                        <i class="ti ti-eye"></i></a>
+                                </dl>
+                            </li>
+                            <li class="layui-nav-item">
+                                <a href="javascript:;">游戏分类</a>
+                                <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                                    <a th:each="category:${categories}" href="" th:href="'/library?cid='+${category.id}"
+                                       class="list-group-item" th:text="${category.name}">
+                                        <span class="badge badge-success"></span>
+                                        <i class="ti ti-eye"></i>
+                                    </a>
+                                </dl>
+                            </li>
+                        </ul>
+                        <!--                        </select>-->
+                        <a href="movielist.html" class="list"><i class="ion-ios-list-outline "></i></a>
+                        <a href="gamegrid.html.html" class="grid"><i class="ion-grid active"></i></a>
+                    </div>
+
+                    <div class="flex-wrap-movielist">
+                        <div class="movie-item-style-2 movie-item-style-1" th:each="list:${pageInfo.list}">
+                            <img th:src="'/public/images/'+${list.src}" width="170px" height="261px" alt="#">
+                            <div class="hvr-inner">
+                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                            </div>
+                            <div class="mv-item-infor">
+                                <h6 th:text="${list.name}"><a th:href="'/library/game/'+${list.id}">la la land</a></h6>
+                                <p class="rate"><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topbar-filter">
+                        <label><span>共 <span th:text="${pageInfo.total}"></span> 条记录</span></label>
+                        <span>当前 <span style="border-left: solid 1px;border-right:solid 1px;"
+                                       th:text="${pageInfo.pageNum}"></span> 页,总 <span
+                                th:text="${pageInfo.pages}"></span> 页</span>
+
+
+                        <div class="pagination2">
+                            <a th:href="@{/library}">首页</a>
+                            <a th:href="@{/library(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a>
+                            <a th:href="@{/library(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+                            <a th:href="@{/library(pageNum=${pageInfo.pages})}">尾页</a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                    <div class="sidebar">
+                        <div class="searh-form">
+                            <h4 class="sb-title">Search for Game</h4>
+                            <form class="form-style-1" action="/library/" method="get">
+                                <div class="row">
+                                    <div class="col-md-12 form-it">
+                                        <label>Movie name</label>
+                                        <input type="text" name="gameName" placeholder="输入要搜索的游戏名">
+                                    </div>
+                                    <div class="col-md-12 ">
+                                        <input class="submit" type="submit" value="submit">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="ads">
+                            <img src="/public/images/background_zhilang.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/public/layui/layui.js}"></script>
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function () {
+        var element = layui.element;
+
+        //…
+    });
+</script>
+
+<div th:replace="model/js :: commonJs"></div>
+<div th:replace="model/footer :: footer"></div>
+</body>
+</html>

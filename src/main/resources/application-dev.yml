@@ -1,0 +1,31 @@
+web:
+  upload-path: E:\Ayiyay\Ay\AyGame\src\main\resources\public
+spring:
+  datasource:
+    #    数据源配置
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ayiy?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    type: com.alibaba.druid.pool.DruidDataSource
+    #   数据源其他配置
+    initialSize: 5
+    maxActive: 20
+    minIdle: 5
+    maxWait: 60000
+    timeBetWeenConnectErrorMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testOnBorrow: false
+    testOnReturn: false
+    testWhileIdle: true
+    poolPreparedStatements: true
+    filters: stat,wall
+    #    ,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true

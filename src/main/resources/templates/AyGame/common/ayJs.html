@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="jscode"><!-- Javascripts -->
+    <script th:src="@{/public/admin/static/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/public/admin/static/js/core@2.js}"></script>
+    <script th:src="@{/public/admin/static/js/bootstrap.min.js}"></script>
+    <script th:src="@{/public/admin/static/js/feather-icons.js}"></script>
+    <script th:src="@{/public/admin/static/js/perfect-scrollbar.min.js}"></script>
+    <script th:src="@{/public/admin/static/js/pace.min.js}"></script>
+    <script th:src="@{/public/admin/static/js/apexcharts.min.js}"></script>
+    <script th:src="@{/public/admin/static/js/jquery.sparkline.min.js}"></script>
+    <script th:src="@{/public/admin/static/js/main.min.js}"></script>
+    <script th:src="@{/public/admin/static/js/dashboard.js}"></script>
+    <script th:src="@{/public/js/bootstrap-datetimepicker.min.js}"></script>
+    <script th:src="@{/public/js/bootstrap-datetimepicker.zh-CN.js}"></script>
+    <!--<script type="text/javascript">
+        $('#datetimepicker').datetimepicker({
+            language:  'fr',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+    </script>-->
+    <script type="text/javascript">
+        $('#datetimepicker').datetimepicker({
+            format: 'yyyy-mm-dd',//显示格式
+            minView: "month",//设置只显示到月份
+            initialDate: new Date(),
+            todayBtn: true,//显示今日按钮
+            autoclose: true//选中自动关闭
+        });
+    </script>
+</div>
+
+</body>
+</html>

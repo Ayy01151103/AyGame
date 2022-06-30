@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yxm.dao.GameDao">
+
+    <resultMap id="gameMap" type="Game">
+        <id property="id" column="id"/>
+        <association property="category" column="category_id" javaType="Category" select="selectCategory"/>
+        <association property="platform" column="platform_id" javaType="Platform" select="selectPlatform"/>
+        <collection property="pictures" column="id" ofType="Picture" select="selectPicture"/>
+        <collection property="reviews" column="id" ofType="Review" select="selectViews"/>
+    </resultMap>
+    <resultMap id="simpleGameMap" type="Game">
+        <id property="id" column="id"/>
+        <association property="category" column="category_id" javaType="Category" select="selectCategory"/>
+        <association property="platform" column="platform_id" javaType="Platform" select="selectPlatform"/>
+    </resultMap>
+
+    <select id="selectPicture" resultType="Picture">
+        SELECT *
+        FROM picture
+        WHERE game_id = #{id}
+    </select>
+    <select id="selectViews" resultType="Review">
+        SELECT *
+        FROM review
+        WHERE game_id = #{id}
+    </select>
+    <select id="selectCategory" resultType="Category">
+        SELECT *
+        FROM category
+        WHERE id = #{category_id}
+    </select>
+    <select id="selectPlatform" resultType="Platform">
+        SELECT *
+        FROM platform
+        WHERE id = #{platform_id}
+    </select>
+
+    <!--获取游戏所有信息-->
+    <select id="getGame" resultMap="gameMap">
+        select *
+        from game
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="id == null and name != null">
+                and name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <!--获取游戏简要信息-->
+    <select id="getGames" resultMap="simpleGameMap">
+        SELECT * FROM game
+        <where>
+            <if test="name != null">name like #{name}</if>
+            <if test="categoryId != null and categoryId != 0">and category_id = #{categoryId}</if>
+            <if test="platformId != null and platformId != 0">and platform_id = #{platformId}</if>
+        </where>
+    </select>
+
+    <delete id="deleteGame">
+        DELETE
+        FROM game
+        WHERE id = #{id}
+    </delete>
+    <!--    获得类型为1的5个游戏-->
+    <select id="getType1game" resultMap="simpleGameMap">
+        SELECT *
+        FROM `game`
+        WHERE category_id = 1 LIMIT 0 ,4
+    </select>
+    <!--    获得类型为2的5个游戏-->
+    <select id="getType2game" resultMap="simpleGameMap">
+        SELECT *
+        FROM `game`
+        WHERE category_id = 2 LIMIT 0 ,4
+    </select>
+    <!--    获得类型为3的5个游戏-->
+    <select id="getType3game" resultMap="simpleGameMap">
+        SELECT *
+        FROM `game`
+        WHERE category_id = 3 LIMIT 0 ,4
+    </select>
+    <!--    获得类型为4的5个游戏-->
+    <select id="getType4game" resultMap="simpleGameMap">
+        SELECT *
+        FROM `game`
+        WHERE category_id = 4 LIMIT 0 ,4
+    </select>
+
+    <!--查找最热门的5个游戏-->
+    <select id="getHot" resultMap="simpleGameMap">
+        SELECT t1.*,
+               count(t2.id) AS sales
+        FROM game AS t1
+                 LEFT JOIN library AS t2 ON t2.game_id = t1.id
+        GROUP BY t1.id
+        ORDER BY sales DESC LIMIT 0, 10
+    </select>
+
+    <!--新上传的游戏-->
+    <select id="getNew" resultMap="simpleGameMap">
+        SELECT *
+        FROM game
+        ORDER BY pubdate DESC LIMIT 0, 4;
+    </select>
+
+
+    <select id="getBuy" resultMap="simpleGameMap">
+        SELECT t1.*
+        FROM game AS t1
+                 RIGHT JOIN library AS t2 ON t2.game_id = t1.id
+        ORDER BY t2.id LIMIT 0, 4
+    </select>
+
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.yxm.vo.Game">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="platform_id" property="platformId"/>
+        <result column="price" property="price"/>
+        <result column="description" property="description"/>
+        <result column="details" property="details"/>
+        <result column="src" property="src"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`
+        ,
+        `name`,
+        `category_id`,
+        `platform_id`,
+        `price`,
+        `description`,
+        `details`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO game (`name`,
+                          `category_id`,
+                          `platform_id`,
+                          `price`,
+                          `description`,
+                          `details`,
+                          `pubdate`,
+                          src)
+        VALUES (#{pojo.name},
+                #{pojo.categoryId},
+                #{pojo.platformId},
+                #{pojo.price},
+                #{pojo.description},
+                #{pojo.details},
+                #{pojo.pubdate},
+                #{pojo.src})
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO game
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.name!=null">`name`,</if>
+            <if test="pojo.categoryId!=null">`category_id`,</if>
+            <if test="pojo.platformId!=null">`platform_id`,</if>
+            <if test="pojo.price!=null">`price`,</if>
+            <if test="pojo.pubdate!=null">`pubdate`,</if>
+            <if test="pojo.description!=null">`description`,</if>
+            <if test="pojo.details!=null">`details`,</if>
+
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.name!=null">#{pojo.name},</if>
+            <if test="pojo.categoryId!=null">#{pojo.categoryId},</if>
+            <if test="pojo.platformId!=null">#{pojo.platformId},</if>
+            <if test="pojo.price!=null">#{pojo.price},</if>
+            <if test="pojo.pubdate!=null">#{pojo.pubdate},</if>
+            <if test="pojo.description!=null">#{pojo.description},</if>
+            <if test="pojo.details!=null">#{pojo.details},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO game (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.categoryId},
+            #{pojo.platformId},
+            #{pojo.price},
+            #{pojo.description},
+            #{pojo.details},
+            #{pojo.pubdate}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE game
+        <set>
+            <if test="pojo.name != null">`name` = #{pojo.name},</if>
+            <if test="pojo.categoryId != null">`category_id` = #{pojo.categoryId},</if>
+            <if test="pojo.platformId != null">`platform_id` = #{pojo.platformId},</if>
+            <if test="pojo.price != null">`price` = #{pojo.price},</if>
+            <if test="pojo.pubdate != null">`pubdate` = #{pojo.pubdate},</if>
+            <if test="pojo.details != null">`details` = #{pojo.details},</if>
+            <if test="pojo.description != null">`description` = #{pojo.description}</if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+    <update id="updatePoster">
+        UPDATE game
+        SET `src` = #{pojo.src}
+        WHERE `id` = #{pojo.id}
+    </update>
+    <select id="getPictureNum">
+        SELECT `id`
+        FROM game
+        WHERE `id` = #{id}
+    </select>
+    <!--<select id="getNewGame_admin" resultType="com.yxm.vo.Game">
+            SELECT *
+            FROM game
+            ;
+    </select>-->
+    <select id="getNewGame_admin" resultMap="simpleGameMap">
+        SELECT * FROM game
+        <where>
+            <!--<if test="name != null">name like #{name}</if>-->
+            <if test="categoryId != null and categoryId != 0">and category_id = #{categoryId}</if>
+            <if test="platformId != null and platformId != 0">and platform_id = #{platformId}</if>
+        </where>
+        ORDER BY pubdate DESC
+
+    </select>
+    <!--SELECT *
+    FROM game
+    ORDER BY pubdate DESC LIMIT 0, 4;-->
+</mapper>
+

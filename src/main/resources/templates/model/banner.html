@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+
+<div th:fragment="banner" class="banner">
+    <!--顶部导航栏-->
+    <div class="nav nav-tabs navbar-inverse navbar-fixed-top">
+        <div class="navbar-header ">
+            <a class="navbar-brand" href="#">
+                <img alt="Ten" src="/public/images/logo.png" height="20px" width="30px">
+            </a>
+        </div>
+        <li role="presentation"><a class="navbar-brand" href="#">YML</a></li>
+        <ul class="nav navbar-nav navbar-right">
+            <li th:if="${session.user == null}" role="presentation"><a class="title" href="/user/login">
+            <span class="glyphicon glyphicon-user"
+                  aria-hidden="true"></span>登录</a></li>
+            <!--        登录-->
+            <li role="presentation">
+                <a class="title" href="/user/logout">
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>注销</a>
+            </li>
+            <li th:if="${session.user != null}" role="presentation">
+                <a class="title" href="/user/details" th:text="${session.user.name}">
+                <span class="glyphicon glyphicon-envelope"
+                      aria-hidden="true"></span></a></li>
+            <!--        注销-->
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="banner_head_top">
+            <div class="logo">
+            </div>
+            <div class="top-menu">
+                <div class="content white">
+                    <nav class="navbar navbar-default">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                    data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <!--/navbar header-->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li><a href="/">首页</a></li>
+                                <li><a href="/library/">游戏商城</a></li>
+                                <li><a href="/user/library">我的游戏库</a></li>
+                                <li><a href="/user/details">我的信息</a></li>
+                                <li><a href="/user/recharge">充值</a></li>
+                            </ul>
+                        </div>
+                        <!--/navbar collapse-->
+                    </nav>
+                    <!--/navbar-->
+                </div>
+                <div class="clearfix"></div>
+                <script type="text/javascript" src="/public/js/bootstrap-3.1.1.min.js"></script>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="/public/js/bootstrap-3.1.1.min.js"></script>

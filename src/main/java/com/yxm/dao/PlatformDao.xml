@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yxm.dao.PlatformDao">
+
+    <!--集合映射-->
+    <resultMap id="platformMap" type="Platform">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <collection property="games" ofType="Game" column="id" select="selectGames"/>
+    </resultMap>
+    <select id="selectGames" resultType="Game">
+        SELECT *
+        FROM game
+        WHERE platform_id = #{id}
+    </select>
+
+    <select id="getPlatform" resultMap="platformMap">
+        SELECT * FROM platform
+        <where>
+            <if test="id != null">id = #{id}</if>
+            <if test="name != null">and name = #{name}</if>
+        </where>
+    </select>
+
+    <select id="getIndexPlatformGame" resultType="Platform">
+        SELECT *
+        from platform LIMIT 0, 5
+    </select>
+
+
+    <select id="getAllPlatforms" resultType="Platform">
+        SELECT *
+        FROM platform
+    </select>
+
+    <delete id="deletePlatform">
+        DELETE
+        FROM platform
+        WHERE id = #{id}
+    </delete>
+
+
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.yxm.vo.Platform">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`
+        ,
+        `name`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO platform (`name`)
+        VALUES (#{pojo.name})
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO platform
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">`id`,</if>
+            <if test="pojo.name!=null">`name`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.name!=null">#{pojo.name},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO platform (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.name}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE platform
+        <set>
+            <if test="pojo.id != null">`id` = #{pojo.id},</if>
+            <if test="pojo.name != null">`name` = #{pojo.name}</if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+</mapper>
+

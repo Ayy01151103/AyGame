@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head th:replace="decorate/common/head :: commonHead('AGP游戏平台')">
+</head>
+<style>
+#head2{
+    height:140px;
+}
+.list-group-item{
+    background-color: #09161d;
+}
+.circle{
+    border-radius: 50%;
+    width: 160px;
+    height: 160px;
+}
+
+
+</style>
+<body screen_capture_injected="true">
+<!-- Page loader -->
+<div id="preloader" style="display: none;"></div>
+<!-- header section start -->
+<div th:replace="decorate/common/header.html :: commonHeader(activeUri='index')"></div>
+<!-- header section end -->
+<div th:replace="AyGame/user/transformers.html :: transformers"></div>
+<!-- footer section start -->
+<footer th:replace="decorate/common/footer.html::footer"></footer>
+<!-- footer section end -->
+<div th:replace="decorate/common/js.html::js"></div>
+</body>
+</html>

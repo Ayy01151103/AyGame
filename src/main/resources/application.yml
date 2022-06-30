@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: yxm
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 50MB
+  thymeleaf:
+    prefix: classpath:/templates/
+  resources:
+    static-locations: file:${web.upload-path},classpath:/public
+  mvc:
+    static-path-pattern: /public/**
+  messages:
+    basename: public/i18n/messages #相对路径 开头请勿添加斜杠
+mybatis:
+  type-aliases-package: com.yxm.vo
+logging:
+  path: ./logging
+  file: ${logging.path}/yxm.log

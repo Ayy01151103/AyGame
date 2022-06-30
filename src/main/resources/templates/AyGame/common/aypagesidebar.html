@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<div th:fragment="pagesidebar">
+    <div class="page-sidebar">
+        <!--<a class="logo" href="">AyGame</a>-->
+        <ul class="list-unstyled accordion-menu">
+            <li>
+
+                <a th:href="@{/index}">首页</a>
+            </li>
+            <li th:class="${activeUri == 'index'?'active-page':''}">
+
+                <a th:href="@{/admin}">管理中心</a>
+            </li>
+            <li th:class="${activeUri == 'user'?'active-page':''}">
+                <a th:href="@{/admin/users} ">用户管理</a>
+            </li>
+            <li th:class="${activeUri == 'game'?'active-page':''}">
+                <a th:href="@{/admin/game}">游戏管理</a>
+            </li>
+            <li th:class="${activeUri == 'platform'?'active-page':''}">
+                <a th:href="@{/admin/platform}">平台管理</a>
+            </li>
+            <li th:class="${activeUri == 'category'?'active-page':''}">
+                <a th:href="@{/admin/category}">分类管理</a>
+            </li>
+         <!--   <li th:class="${activeUri == 'heard'?'active-page':''}">
+                <a th:href="@{/admin/heard}">头像管理</a>
+            </li>-->
+
+        </ul>
+        <a href="#" id="sidebar-collapsed-toggle"><i data-feather="arrow-right"></i></a>
+    </div>
+</div>
+</html>

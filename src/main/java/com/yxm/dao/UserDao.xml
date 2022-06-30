@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxm.dao.UserDao">
+    <resultMap id="UserMap" type="User">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="password" column="password"/>
+        <result property="money" column="money"/>
+        <result property="registerDate" column="register_date"/>
+        <result property="isAdmin" column="is_admin"/>
+        <association property="header" column="id" javaType="Header" select="selectHeader"/>
+        <collection property="games" column="id" ofType="Game" select="selectGames"/>
+        <collection property="reviews" column="id" ofType="Review" select="selectReviews"/>
+    </resultMap>
+    <select id="selectHeader" resultType="Header">
+        SELECT *
+        FROM header
+        WHERE id = #{id}
+    </select>
+    <select id="selectGames" resultType="Game">
+        SELECT t1.*
+        FROM game AS t1
+                 INNER JOIN library AS t2
+        WHERE t2.user_id = #{id}
+          AND t1.id = t2.game_id
+    </select>
+    <select id="selectReviews" resultType="Review">
+        SELECT *
+        FROM review
+        WHERE user_id = #{id}
+    </select>
+
+    <select id="checkUserName" parameterType="User" resultType="User">
+        SELECT * FROM user
+        <where>
+            <if test="id != null and id != 0">id = #{id}</if>
+            <if test="name != null">and name = #{name}</if>
+        </where>
+        limit 0,1
+    </select>
+
+    <select id="getUser" parameterType="User" resultMap="UserMap">
+        select * from user
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="id ==null and name != null">
+                and name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <select id="getAllUser" resultType="User">
+        SELECT *
+        FROM user
+    </select>
+
+    <select id="getUserById" resultType="User">
+        select *
+        from user
+        where id = #{id}
+    </select>
+    <select id="getNewUser" resultType="com.yxm.vo.User">
+        SELECT * FROM user
+        ORDER BY register_date DESC
+    </select>
+
+    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user (name, password, register_date)
+        VALUES (#{name}, #{password}, #{registerDate})
+    </insert>
+
+    <update id="updateUser" parameterType="User">
+        UPDATE user
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="registerDate != null">
+                registerDate = #{registerDate},
+            </if>
+            <if test="isAdmin != null">
+                isAdmin = #{isAdmin},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="User">
+        DELETE
+        FROM user
+        WHERE id = #{id}
+    </delete>
+
+    <update id="recharge">
+        UPDATE user
+        SET money = money + #{money}
+        WHERE id = #{user.id}
+    </update>
+
+    <update id="pay">
+        UPDATE user
+        SET money = money - #{money}
+        WHERE id = #{user.id}
+    </update>
+</mapper>

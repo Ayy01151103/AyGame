@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<head>
+    <link rel="stylesheet" th:href="@{/public/css/style3.css}">
+    <link rel="stylesheet" th:href="@{/public/css/plugins.css}">
+    <!--    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.css}">
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/public/css/style.css}" type="text/css">
+        <link rel="stylesheet" th:href="@{/public/css/style4.css}" type="text/css">
+        <link rel="stylesheet" th:href="@{/public/css/Newstyle.css}" type="text/css">
+        <link rel="stylesheet" th:href="@{/public/css/lightbox.css}" type="text/css">-->
+    <link rel="stylesheet" th:href="@{/public/layui/css/layui.css}">
+    <!-- Ionic icons -->
+    <link href="https://unpkg.com/ionicons@4.2.0/dist/css/ionicons.min.css" rel="stylesheet">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AyGame</title>
+    <!-- Favicon Icon -->
+    <link th:href="@{/public/admin/static/css/css.css}" rel="stylesheet">
+    <link rel="icon" type="image/png" th:href="@{/public/resources/favicon.ico}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/public/newIndexStyle/css/bootstrap.min.css}" media="all">
+    <!-- Slick nav CSS -->
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/public/newIndexStyle/css/slicknav.min.css}" media="all">
+    <!-- Iconfont CSS -->
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/public/newIndexStyle/css/icofont.css}" media="all">
+    <!-- Owl carousel CSS -->
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/public/newIndexStyle/css/owl.carousel.css}">
+    <!-- Popup CSS -->
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/public/newIndexStyle/css/magnific-popup.css}">
+    <!-- Main style CSS -->
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/public/newIndexStyle/css/style.css}" media="all">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/public/newIndexStyle/css/responsive.css}" media="all">
+    <!--Swiper-->
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/public/newIndexStyle/swiper/css/certify.css}" media="all">
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/public/newIndexStyle/swiper/css/swiper.min.css}" media="all">
+    <script type="text/javascript" charset="utf-8"
+            th:src="@{/public/newIndexStyle/swiper/js/swiper.min.js}"></script>
+    <!--[if lt IE 9]>
+    <script src="http://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="http://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" th:href="@{/public/newIndexStyle/ghi/css/style.css}">
+    <script type="text/javascript" charset="utf-8"
+            th:src="@{/public/newIndexStyle/ghi/js/page_context.js}"></script>
+</head>
+<body>
+<div th:replace="decorate/common/header.html :: commonHeader(activeUri='index')"></div>
+<div>
+    <div class="hero common-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="hero-ct">
+                        <h1> Game listing - list</h1>
+                        <ul class="breadcumb">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><span class="ion-ios-arrow-right"></span> Game listing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-single-list">
+        <div class="container">
+            <div class="row ipad-width">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="topbar-filter">
+                        <p>Found <span th:text="${pageInfo2.total}">1</span> in total</p>
+
+                        <!--                        <form class="form-style-1" action="/library/list" method="get" >-->
+                        <!--                            <div class="row">-->
+                        <!--                                <div class="col-md-12 form-it">-->
+                        <!--                                    <label>Movie name</label>-->
+                        <!--                                    <input type="text" name="gameName" placeholder="输入要搜索的游戏名">-->
+                        <!--                                </div>-->
+                        <!--                                <div class="col-md-12 ">-->
+                        <!--                                    <input class="submit" type="submit" value="submit">-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </form>-->
+
+                        <div>
+                            <div class="input-group" >
+                                <form class="form-inline" action="/library/list" method="get">
+                                    <input type="text" class="form-control" name="gameName" placeholder="输入要搜索的游戏名">
+                                    <span class="input-group-btn">
+                                <button style="border: #0C0C0C 1px solid;margin-left: 2px;height: 30px;width: 60px;font-size:10px "
+                                        class="btn btn-default" type="submit">搜索</button>
+                            </span>
+                                </form>
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-6 -->
+
+                        <label>Sort by:</label>
+                        <ul class="layui-nav" lay-filter="">
+                            <li class="layui-nav-item">
+                                <a href="javascript:;">游戏平台</a>
+                                <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                                    <a th:each="platform:${platforms}" href=""
+                                       th:href="'/library/list?pid='+${platform.id}"
+                                       th:text="${platform.name}" class="list-group-item"><span
+                                            class="badge badge-success"></span>
+                                        <i class="ti ti-eye"></i></a>
+                                </dl>
+                            </li>
+                            <li class="layui-nav-item">
+                                <a href="javascript:;" >游戏分类</a>
+                                <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                                    <a th:each="category:${categories}" href=""
+                                       th:href="'/library/list?cid='+${category.id}"
+                                       class="list-group-item" th:text="${category.name}">
+                                        <span class="badge badge-success"></span>
+                                        <i class="ti ti-eye"></i>
+                                    </a>
+                                </dl>
+                            </li>
+                        </ul>
+                        <!--                        </select>-->
+                        <a th:href="@{/library/list}" class="list"><i class="ion-ios-list-outline active "></i></a>
+                        <a th:href="@{/library/grid}" class="grid"><i class="ion-ios-grid "></i></a>
+                    </div>
+
+                    <div class="flex-wrap-movielist">
+                        <div class="movie-item-style-2" th:each="list:${pageInfo2.list}">
+                            <img th:src="'/public/images/'+${list.src}" width="170px" alt="">
+                            <div class="mv-item-infor">
+                                <h6><a th:href="'/library/game/'+${list.id}" th:text="${list.name}">oblivion <span>(2012)</span></a>
+                                </h6>
+                                <!--                                <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>-->
+                                <p class="describe" style="
+                                    -o-text-overflow: ellipsis;
+                                    text-overflow: ellipsis;
+                                    height: 30px;
+                                    overflow: hidden;
+                                    white-space: nowrap;"
+                                   th:text="${list.details}">Earth's mightiest heroes must come together and learn to
+                                    fight as a team if they are to stop the mischievous Loki and his alien army from
+                                    enslaving humanity...</p>
+                                <p class="run-time">Time: <span
+                                        th:text="${#dates.format(list.pubdate,'yyyy-MM-dd')}"></span></p>
+                                <a th:href="'/library/game/'+${list.id}" class="btn-portfolio">购买</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="topbar-filter">
+                        <label><span>共 <span th:text="${pageInfo2.total}"></span> 条记录</span></label>
+                        <span>当前 <span style="border-left: solid 1px;border-right:solid 1px;"
+                                       th:text="${pageInfo2.pageNum}"></span> 页,总 <span
+                                th:text="${pageInfo2.pages}"></span> 页</span>
+                        <div class="pagination2">
+                            <a th:href="@{/library/list}">首页</a>
+                            <a th:href="@{/library/list(pageNum=${pageInfo2.hasPreviousPage}?${pageInfo2.prePage}:1)}">上一页</a>
+                            <a th:href="@{/library/list(pageNum=${pageInfo2.hasNextPage}?${pageInfo2.nextPage}:${pageInfo2.pages})}">下一页</a>
+                            <a th:href="@{/library/list(pageNum=${pageInfo2.pages})}">尾页</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/public/layui/layui.js}"></script>
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function () {
+        var element = layui.element;
+
+        //…
+    });
+</script>
+
+<div th:replace="model/js :: commonJs"></div>
+<!-- footer section start -->
+<footer th:replace="decorate/common/footer.html::footer"></footer>
+<!-- footer section end -->
+</body>
+</html>

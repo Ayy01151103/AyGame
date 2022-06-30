@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="AyGame/common/ayhead :: commonHead('Aygame')">
+</head>
+<body class="page-sidebar-collapsed">
+<div class="page-container">
+    <div th:replace="AyGame/common/aypagesidebar :: pagesidebar(activeUri='index')"></div>
+    <div class="page-content">
+        <div th:replace="AyGame/common/ayCpageheader :: pageheader"></div>
+        <div th:replace="AyGame/common/ayCpagewrapper :: pagewrapper"></div>
+        <div th:replace="AyGame/common/ayfooter :: footer"></div>
+    </div>
+</div>
+
+
+<div th:replace="AyGame/common/ayOther :: orther"></div>
+<div th:replace="AyGame/common/ayJs :: jscode"></div>
+</body>
+</html>

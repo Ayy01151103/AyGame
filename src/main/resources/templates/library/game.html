@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<!--<head th:replace="model/head :: commonHead('游戏信息'+${game.name})">
+</head>-->
+<head th:replace="decorate/common/head :: commonHead('AGP游戏平台')">
+</head>
+<style>
+    .list-group-item{
+        background-color: #41474a;
+
+    }
+    .hero3 {
+        /*background: url('../images/uploads/celeb-hero-single.jpg') no-repeat;*/
+        height: 538px;
+    }
+
+    .common-hero {
+        position: relative;
+        background-image: url(/public/images/bj999.jpg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        overflow: hidden;
+        height: 300px;
+    }
+</style>
+<body>
+
+<!--<div th:replace="commons/bar :: navbar"></div>-->
+<!-- header section start -->
+<div th:replace="decorate/common/header.html :: commonHeader(activeUri='index')"></div>
+<!-- header section end -->
+<div>
+    <div class="hero common-hero"></div>
+    <!-- blog area start -->
+    <section class="blog-details">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="news-details">
+                        <div class="single-news">
+                            <!--<div class="news-bg-1"></div>
+                            <div class="news-date">
+                                <h2><span>NOV</span> 25</h2>
+                                <h1>2017</h1>
+                            </div>-->
+                            <h4>游戏截图:</h4>
+                            <div class="row"> <img th:each="picture:${game.pictures}" th:src="'/public/pictures/'+${picture.src}"
+                                                   class="col-md-4"/></div>
+
+                        </div>
+                        <h2 th:text="${game.description}">Transformers: The Last Knight</h2>
+                        <p th:text="${game.details}">Humans are at war with the Transformers, and Optimus Prime is gone.
+                            The key to saving the future lies buried in the secrets of the past and the hidden history
+                            of Transformers on Earth. Now it's up to the unlikely alliance of inventor Cade Yeager,
+                            Bumblebee, an English lord and an Oxford professor to save the world. Transformers: The Last
+                            Knight has a deeper mythos and bigger spectacle than its predecessors, yet still ends up
+                            being mostly hollow and cacophonous. The first "Transformers" movie that could actually be
+                            characterized as badass. Which isn't a bad thing. It may, in fact, be better.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3" style="margin-top: 30px;">
+                    <!-- <div class="blog-sidebar">
+                         <h4>Recent Posts</h4>
+                         <ul>
+                             <li><a href="#">Transformers: The Last Knight</a></li>
+                             <li><a href="#">Duis aute irure dolor in reprehenderit in voluptate</a></li>
+                             <li><a href="#">Nostrud exercitation ullamco laboris</a></li>
+                             <li><a href="#">Magnam aliquam quaerat voluptatem</a></li>
+                             <li><a href="#">Magnam aliquam quaerat voluptatem</a></li>
+                             <li><a href="#">Excepteur sint occaecat cupidatat proi</a></li>
+                         </ul>
+                     </div>-->
+                    <div class="transformers-content mtr-30">
+                        <h3 th:text="${game.name}">Alex Px.</h3>
+
+                        <ul>
+                            <li>
+                                <div class="transformers-left">
+                                    游戏类型:
+                                </div>
+                                <div class="transformers-right">
+                                    <span th:value="${game.category.name}" th:text="${game.category.name}"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="transformers-left">
+                                    游戏所在平台:
+                                </div>
+                                <div class="transformers-right">
+                                    <span th:value="${game.platform.name}" th:text="${game.platform.name}"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="transformers-left">
+                                    游戏售价:
+                                </div>
+                                <div class="transformers-right">
+                                    <span th:text="'$'+${game.price}"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="transformers-left">
+                                    上架时间
+                                </div>
+                                <div class="transformers-right">
+                                    <span th:text="${game.pubdate.toLocaleString()}"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="transformers-left">
+                                    销量:
+                                </div>
+                                <div class="transformers-right">
+                                    <span th:text="${sales}"></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="list-group list-group-alternate" style="margin: 10px auto;"
+                         th:with="buyCar=${session.buyCar}">
+
+                        <a href="" th:if="${session.user}?*{session.user.isAdmin}"
+                           th:href="@{/admin/game/update/__${game.id}__}"
+                           class="list-group-item">
+                            <span class="badge badge-danger"></span>
+                            <i class="ti ti-eye"></i> 修改游戏
+                        </a>
+
+                        <a class="list-group-item"
+                           th:onclick="'if(confirm(\'确定购买吗?\')){window.location=\'/user/game/'+${game.id}+'/buy\';}'">
+                            <span class="badge badge-success" th:text="'$ '+${game.price}"></span>
+                            <i class="ti ti-eye"></i> 购买
+                        </a>
+                        <a class="list-group-item" th:onclick="'addGame(\'/user/game/'+${game.id}+'/add\')'">
+                          <span id="gameNum" th:text="${buyCar != null?buyCar.games.size():0}"
+                                class="badge badge-primary"></span>
+                            <i class="ti ti-email"></i>加入购物车
+
+                        </a>
+                        <a th:href="@{/user/buyCar}" class="list-group-item">
+                            <span class="badge badge-warning" th:text="${buyCar != null?buyCar.games.size():0}"></span>
+                            <i class="ti ti-eye"></i> 查看购物车
+                        </a>
+                       <!-- <a href="#" class="list-group-item">
+                      <span class="badge" th:with="messages=${session.user}?*{messages}"
+                            th:text="${messages}?${messages.size()}:0"></span>
+                            <i class="ti ti-comments"></i>消息
+                        </a>-->
+                        <a class="list-group-item" onclick="window.history.back();">
+                            <span class="badge"></span>
+                            <i class="ti ti-comments"></i>返回
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- blog area end -->
+    <!--  <div class="content">
+
+          <div class="container">
+              &lt;!&ndash;信息&ndash;&gt;
+              <div class="col-lg-3 content-left" role="alert">
+                  <span class="label label-success" th:text="${message}"></span>
+              </div>
+              <div class="clearfix"></div>
+              &lt;!&ndash;游戏信息&ndash;&gt;
+              <div class="col-md-3 content-left">
+                  <table class="table table-hover">
+                      <thead>
+                      <tr>
+                          <th colspan="2">游戏信息</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                          <td>游戏名称:</td>
+                          <td th:text="${game.name}"></td>
+                      </tr>
+                      <tr>
+                          <td>游戏类型</td>
+                          <td th:text="${game.category.name}"></td>
+                      </tr>
+                      <tr>
+                          <td>游戏所在平台</td>
+                          <td th:text="${game.platform.name}"></td>
+                      </tr>
+                      <tr>
+                          <td>游戏售价</td>
+                          <td th:text="'$'+${game.price}"></td>
+                      </tr>
+                      <tr>
+                          <td>上架时间</td>
+                          <td th:text="${game.pubdate.toLocaleString()}"></td>
+                      </tr>
+                      <tr>
+                          <td>销量</td>
+                          <td th:text="${sales}"></td>
+                      </tr>
+                      </tbody>
+                  </table>
+                  <div class="clearfix"></div>
+                  <div class="list-group list-group-alternate" style="margin: 20px auto;"
+                       th:with="buyCar=${session.buyCar}">
+
+                      <a href="" th:if="${session.user}?*{session.user.isAdmin}"
+                         th:href="@{/admin/game/update/__${game.id}__}"
+                         class="list-group-item">
+                          <span class="badge badge-danger"></span>
+                          <i class="ti ti-eye"></i> 修改游戏
+                      </a>
+
+                      <a class="list-group-item"
+                         th:onclick="'if(confirm(\'确定购买吗?\')){window.location=\'/user/game/'+${game.id}+'/buy\';}'">
+                          <span class="badge badge-success" th:text="'$ '+${game.price}"></span>
+                          <i class="ti ti-eye"></i> 买买买
+                      </a>
+                      <a class="list-group-item"
+                         th:onclick="'addGame(\'/user/game/'+${game.id}+'/add\')'"
+                      >
+                          <span id="gameNum" th:text="${buyCar != null?buyCar.games.size():0}"
+                                class="badge badge-primary"></span>
+                          <i class="ti ti-email"></i>加入购物车
+                      </a>
+                      <a th:href="@{/user/buyCar}" class="list-group-item">
+                          <span class="badge badge-warning" th:text="${buyCar != null?buyCar.games.size():0}"></span>
+                          <i class="ti ti-eye"></i> 查看购物车
+                      </a>
+                      <a href="#" class="list-group-item">
+                      <span class="badge" th:with="messages=${session.user}?*{messages}"
+                            th:text="${messages}?${messages.size()}:0"></span>
+                          <i class="ti ti-comments"></i>消息
+                      </a>
+                      <a class="list-group-item" onclick="window.history.back();">
+                          <span class="badge"></span>
+                          <i class="ti ti-comments"></i>返回
+                      </a>
+                  </div>
+              </div>
+
+              <div class="col-md-9 content-right" style="display: block;">
+                  <table class="table table-responsive">
+                      <thead>
+                      <tr>
+                          <th>游戏截图</th>
+                      </tr>
+                      </thead>
+                      <tr>
+                          <td>
+                              <img th:each="picture:${game.pictures}" th:src="'/public/pictures/'+${picture.src}"
+                                   class="col-md-4"/>
+                          </td>
+                      </tr>
+                      <tr th:each="description:${game.description}">
+                          <td>
+                              <h4 th:text="${description}"></h4>
+                          </td>
+                      </tr>
+                      <tr th:each="details:${game.details}">
+                          <td><p th:text="${details}"></p></td>
+                      </tr>
+                  </table>
+                  <div class="clearfix"></div>
+              </div>
+
+              <div class="clearfix"></div>
+          </div>
+      </div>-->
+</div>
+<script type="text/javascript">
+    function addGame(url) {
+       /* console.log(url);
+        alert(url);*/
+        $.get(url, function (data) {
+          /*  alert("数据"+data);*/
+                if (data == -1)
+                    alert("添加错误，请先登陆");
+                if (data == 0)
+                    alert("你已拥有该游戏。");
+                if (data > 0) {
+                    $("#gameNum").text(data);
+                    alert("添加到购物车成功");
+                }
+            }
+        )
+    }
+</script>
+<!--<div th:replace="model/js :: commonJs"></div>-->
+
+<!--<div th:replace="model/footer :: footer"></div>-->
+<!-- footer section start -->
+<!-- Javascripts -->
+<script type='text/javascript' th:src="@{/webjars/jquery/3.4.1/jquery.slim.js}"></script>
+<script type="text/javascript" th:src="@{/public/js/lightbox-plus-jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+<footer th:replace="decorate/common/footer.html::footer"></footer>
+<!-- footer section end -->
+</body>
+</html>

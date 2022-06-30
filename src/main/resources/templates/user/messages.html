@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<!--<head th:replace="model/head :: commonHead('消息中心')">
+</head>-->
+<head th:replace="decorate/common/head :: commonHead('AGP游戏平台')">
+</head>
+<style>
+    #head2{
+        height:140px;
+    }
+    .list-group-item{
+        background-color: #3c535f;
+        margin-bottom: 10px;
+    }
+</style>
+<body>
+<!--<div th:replace="commons/bar :: navbar"></div>-->
+<div th:replace="decorate/common/header.html :: commonHeader(activeUri='index')"></div>
+<div class="loginbox container">
+    <div class="content">
+        <a href="/user/details">
+            <button class="btn btn-primary">返回主管理页面</button>
+        </a>
+        <!--分类管理-->
+        <h2 class="h2">消息列表</h2>
+        <div class="content-left col-md-6">
+            <div class="list-group list-group-alternate">
+                <a href="" class="list-group-item" th:each="msg:${session.user.messages}" th:text="${msg}"><span
+                        class="badge"></span>
+                    <i class="ti ti-email"></i>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div th:replace="model/js :: commonJs"></div>
+<!-- footer section start -->
+<footer th:replace="decorate/common/footer.html::footer"></footer>
+<!-- footer section end -->
+<!--<div th:replace="model/footer :: footer"></div>-->
+</body>
+</html>

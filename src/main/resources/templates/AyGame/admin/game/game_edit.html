@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<head th:replace="AyGame/common/ayhead :: commonHead('AyGame')"></head>
+<body class="page-sidebar-collapsed">
+<div class="page-container">
+    <div th:replace="AyGame/common/aypagesidebar :: pagesidebar"></div>
+    <div th:replace="AyGame/common/ayCpageheader :: pageheader"></div>
+    <div class="page-content">
+        <div class="main-wrapper">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">编辑</h5>
+                            <form th:action="@{/admin/game/update/__${game.id}__}" enctype="multipart/form-data" th:object="${game}" method="post">
+                                <div class="container">
+                                    <div class="row clearfix">
+                                        <div class="col-md-6 column mb-3">
+                                            <label for="name" class="form-label" th:text="#{game.name}"></label>
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="请输入名称" th:value="${game.name}" required>
+                                        </div>
+                                        <div class="col-md-6 column mb-3">
+                                            <label class="form-label" th:text="#{game.price}"></label>
+                                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" name="price" id="price"
+                                                       placeholder="请输入售价" th:value="${game.price}" required>
+                                        </div>
+                                        <div class="col-md-6 column mb-3">
+                                            <label for="categoryId" class="form-label"
+                                                   th:text="#{game.category}"></label>
+                                            <select name="categoryId" id="categoryId" class="form-select">
+                                                <option th:each="category:${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 column mb-3">
+                                            <label for="categoryId" class="form-label"
+                                                   th:text="#{game.platform}"></label>
+                                            <select name="platformId" id="platformId" class="form-select">
+                                                <option th:each="platform:${platforms}" th:value="${platform.id == game.platform.id?game.platform.id:platform.id}"
+                                                        th:text="${platform.name == game.platform.name?game.platform.name:platform.name}"></option>
+                                            </select>
+
+                                        </div>
+                                        <div class="col-md-6 column mb-3">
+                                            <label for="formFile" class="form-label" th:text="#{game.src}"></label>
+                                            <input class="form-control" name="file"  type="file" id="formFile">
+                                        </div>
+                                        <div class="col-md-6 column mb-3">
+                                            <label class="form-label" th:text="#{game.pub_date}"></label>
+                                            <input class="form-control" type="text" name="pubdate"  id="datetimepicker"
+                                                   placeholder="请选择日期" th:value="${game.pubdate.toLocaleString()}" readonly>
+
+
+                                        </div>
+                                        <div class="col-md-6 column mb-3">
+                                            <label class="form-label" th:text="#{game.description}"></label>
+                                            <textarea class="form-control"type="text" name="description" style="height: 158px;" placeholder="请输入介绍" th:text="${game.description}" required></textarea>
+                                        </div>
+                                        <div class="col-md-6 column mb-3">
+                                            <label class="form-label" th:text="#{game.details}"></label>
+                                            <textarea class="form-control"type="text" name="details" style="height: 158px;" placeholder="请输入详情" th:text="${game.details}" required></textarea>
+                                        </div>
+                                        <div class="col-md-12 column mb-6">
+                                            <label for="formFileMultiple" class="form-label" ></label>
+                                            <input class="form-control" type="file" name="files" id="formFileMultiple" multiple="">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" th:text="#{button.submit}"></button>
+                                    <button type="reset" class="btn btn-warning">重置</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="AyGame/common/ayOther :: orther"></div>
+
+
+<!-- Javascripts -->
+<div th:replace="AyGame/common/ayJs :: jscode"></div>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section th:fragment="hero" class="hero-area" id="home">
+    <div>
+        <div id="certify" style="margin-top: 200px;">
+            <div class="swiper-container swiper-container-horizontal">
+                <div class="swiper-wrapper"
+                     style="transition-duration: 0ms; transform: translate3d(-1900px, 0px, 0px);transition: all 0s ease 0s; width: 6650px;">
+                    <div class="swiper-slide swiper-slide-duplicate-next" data-swiper-slide-index="0"
+                         style="transform: translateX(1976px) scale(0.2); z-index: 959; opacity: 0; transition-duration: 0ms;">
+                        <a th:href="'/library/game/'+${hotGames[0].id}">
+                            <img th:src="'/public/images/'+${hotGames[0].src}"></a>
+                        <p th:text="${hotGames[0].name}">非常难得又值钱的认证证书</p>
+                    </div>
+
+                    <div class="swiper-slide" data-swiper-slide-index="1"
+                         style="transform: translateX(1248px) scale(0.4); z-index: 969; opacity: 1; transition-duration: 0ms;">
+                        <a th:href="'/library/game/'+${hotGames[1].id}">
+                            <img th:src="'/public/images/'+${hotGames[1].src}"></a>
+                        <p th:text="${hotGames[1].name}">非常难得又值钱的认证证书</p>
+                    </div>
+                    <div class="swiper-slide" data-swiper-slide-index="2"
+                         style="transform: translateX(676px) scale(0.6); z-index: 979; opacity: 1; transition-duration: 0ms;">
+                        <a th:href="'/library/game/'+${hotGames[2].id}">
+                            <img th:src="'/public/images/'+${hotGames[2].src}"></a>
+                        <p th:text="${hotGames[2].name}">非常难得又值钱的认证证书</p>
+                    </div>
+                    <div class="swiper-slide swiper-slide-prev" data-swiper-slide-index="3"
+                         style="transform: translateX(260px) scale(0.8); z-index: 989; opacity: 1; transition-duration: 0ms;">
+                        <a th:href="'/library/game/'+${hotGames[3].id}">
+                            <img th:src="'/public/images/'+${hotGames[3].src}"></a>
+                        <p th:text="${hotGames[3].name}">非常难得又值钱的认证证书</p>
+                    </div>
+                    <div class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active"
+                         data-swiper-slide-index="4"
+                         style="transform: translateX(-2860px) scale(0); z-index: 949; opacity: 0; transition-duration: 0ms;">
+                        <a th:href="'/library/game/'+${hotGames[4].id}">
+                            <img th:src="'/public/images/'+${hotGames[4].src}"></a>
+                        <p th:text="${hotGames[4].name}">非常难得又值钱的认证证书</p>
+                    </div>
+                    <div class="swiper-slide" data-swiper-slide-index="5"
+                         style="transform: translateX(676px) scale(0.6); z-index: 979; opacity: 1; transition-duration: 0ms;">
+                        <a th:href="'/library/game/'+${hotGames[5].id}">
+                            <img th:src="'/public/images/'+${hotGames[5].src}"></a>
+                        <p th:text="${hotGames[5].name}">非常难得又值钱的认证证书</p>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination swiper-pagination-bullets"><span
+                    class="swiper-pagination-bullet"></span><span
+                    class="swiper-pagination-bullet"></span><span
+                    class="swiper-pagination-bullet"></span><span
+                    class="swiper-pagination-bullet"></span><span
+                    class="swiper-pagination-bullet swiper-pagination-bullet-active"></span></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+
+        <!--</div>-->
+        <!--</div>-->
+        <!-- </div>-->
+
+
+    </div>
+    <script>
+        certifySwiper = new Swiper('#certify .swiper-container', {
+            watchSlidesProgress: true,
+            slidesPerView: 'auto',
+            centeredSlides: true,
+            loop: true,
+            loopedSlides: 5,
+            autoplay: false,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                //clickable :true,
+            },
+            on: {
+                progress: function (progress) {
+                    for (i = 0; i < this.slides.length; i++) {
+                        var slide = this.slides.eq(i);
+                        var slideProgress = this.slides[i].progress;
+                        modify = 1;
+                        if (Math.abs(slideProgress) > 1) {
+                            modify = (Math.abs(slideProgress) - 1) * 0.3 + 1;
+                        }
+                        translate = slideProgress * modify * 260 + 'px';
+                        scale = 1 - Math.abs(slideProgress) / 5;
+                        zIndex = 999 - Math.abs(Math.round(10 * slideProgress));
+                        slide.transform('translateX(' + translate + ') scale(' + scale + ')');
+                        slide.css('zIndex', zIndex);
+                        slide.css('opacity', 1);
+                        if (Math.abs(slideProgress) > 3) {
+                            slide.css('opacity', 0);
+                        }
+                    }
+                },
+                setTransition: function (transition) {
+                    for (var i = 0; i < this.slides.length; i++) {
+                        var slide = this.slides.eq(i)
+                        slide.transition(transition);
+                    }
+
+                }
+            }
+
+        })
+    </script>
+</section>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<head th:replace="model/head :: commonHead('登录')">
+</head>
+<body>
+<div th:replace="commons/bar :: navbar"></div>
+<div class="loginbox  container">
+    <div class="row loginbox-left">
+        <div class="loginbox_content col-md-4 col-lg-4">
+            <h2>登录</h2>
+            <p>到现有的yxm账户</p>
+            <br>
+            <form action="/user/login" method="post" th:object="${user}">
+                <div class="input-group input-group-lg">
+                    <div class="row">
+                        <span class="input-group-addon col-md-3" id="login-addon1">用户名</span>
+                        <input type="text" name="name" class="form-control col-md-8" placeholder="Username"
+                               required="required"
+                               th:field="*{name}"
+                               aria-describedby="sizing-addon1">
+                        <span class="label label-warning " th:if="${#fields.hasErrors('name')}"
+                              th:errors="${#fields.errors('name')}"></span>
+                    </div>
+
+                </div>
+                <div class="input-group input-group-lg">
+                    <div class="row">
+                        <span class="input-group-addon col-md-3" id="login-addon2">密 码</span>
+                        <input type="password" name="password" class="form-control  col-md-8" placeholder="Password"
+                               required="required" th:field="*{password}"
+                               aria-describedby="sizing-addon2">
+                        <span class="label label-warning" th:if="${#fields.hasErrors('password')}"
+                              th:errors="${#fields.errors('password')}"></span>
+                    </div>
+
+                </div>
+                <button type="submit" class="btn btn-primary">登录</button>
+            </form>
+            <div class="alert alert-warning" role="alert" th:if="${message != null}">
+                <strong th:text="${message}"></strong>
+            </div>
+        </div>
+        <div class="loginbox_sep col-md-1 col-lg-1"></div>
+        <!--        注册-->
+        <div class="loginbox_content col-md-3 col-lg-3">
+            <h2>创建</h2>
+            <p>一个新的免费账户</p>
+            <!--            <div class="alert alert-warning" role="alert">-->
+            <!--                <strong id="message" th:text="${message}"></strong>-->
+            <!--            </div>-->
+            <br>
+            <p>
+                欢迎免费加入及轻松使用。继续创建 Yxm 帐户并获取 Yxm - 适合 PC 和 Mac 玩家的前沿数字解决方案。</p>
+            <br>
+            <br>
+
+            <a href="/user/register">
+                <button type="submit" class="btn btn-primary" href="/">注册</button>
+            </a>
+
+        </div>
+        <div class="loginbox_content col-md-4 col-lg-4">
+            <h2>为什么加入 Yxm？</h2>
+            <ul id="why_list">
+                <li>marker加入Yxm社区</li>
+                <li>在任何电脑都能玩</li>
+                <li>游戏时与好友聊天</li>
+                <li>安排游戏，比赛，或LAN聚会</li>
+                <li>获取自动游戏更新及更多！</li>
+                <br>
+                <img src="/public/images/why_join_preview.png" width="265" height="176" border="0" alt="">
+            </ul>
+
+            <!--            <a href="/user/register"><button type="submit" class="btn btn-primary" href="/">注册</button></a>-->
+
+        </div>
+    </div>
+</div>
+<div th:replace="model/js :: commonJs"></div>
+<div th:replace="model/footer :: footer"></div>
+</body>
+</html>

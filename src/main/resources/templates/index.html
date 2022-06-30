@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ch">
+<head th:replace="model/head :: commonHead('YXM')">
+</head>
+<body>
+<div th:replace="commons/bar :: navbar"></div>
+<div th:replace="commons/bar::Carousel"></div>
+<!--<div th:replace="commons/bar::Game1"></div>-->
+<section id="portfolio" th:fragment="Game1">
+    <div class=" container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-block">
+                    <h2><b class="underline-gold">热门</b>游戏</h2>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3 spacer-md  game1" th:each="hotGames:${hotGames}">
+                <a href="#" th:href="'/library/game/'+${hotGames.id}">
+                    <!--                    width="320px" height="200px"-->
+                    <img th:src="'/public/images/'+${hotGames.src}" class="portfolio-img img-responsive img-rounded"
+                         alt="image">
+                </a>
+                <span th:text="${hotGames.category.name}">Branding - Development</span>
+                <h4 th:text="${hotGames.name}">Name</h4>
+                <p class="text text-hide" th:text="${hotGames.details}">Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. <b class="bold-it">Aliquam ut placerat libero</b>, accumsan lacinia libero.
+                    Pellentesque ipsum turpis, vehicula eget nunc et.</p>
+                <a href="#" th:href="'/library/game/'+${hotGames.id}" class="btn-portfolio">购买</a>
+            </div>
+        </div><!-- end row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-block">
+                    <h2><b class="underline-gold">最新</b>上架</h2>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6  spacer-md portfolio-content game2" th:each="newGames:${newGames}">
+                <a th:href="'/library/game/'+${newGames.id}">
+                    <img th:src="'/public/images/'+${newGames.src}" class="portfolio-img img-fluid" alt="image">
+                </a>
+                <span th:text="${newGames.category.name}">Marketing - Branding</span>
+                <h3 th:text="${newGames.name}">Reinventing The Smart Watch</h3>
+                <h5 th:text="${#dates.format(newGames.pubdate,'yyyy-MM-dd')}"></h5>
+                <p class="text text-hide" th:text="${newGames.details}">Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. <b class="bold-it">Aliquam ut placerat libero</b>, accumsan lacinia libero.
+                    Pellentesque ipsum turpis, vehicula eget nunc et.</p>
+                <a href="#" th:href="'/library/game/'+${newGames.id}" class="btn-portfolio">购买</a>
+            </div>
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section>
+<!--<div th:replace="commons/bar::Game2"></div>-->
+<div th:replace="model/footer :: footer"></div>
+<div th:replace="model/js :: commonJs"></div>
+</body>
+</html>

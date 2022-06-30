@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- N A V B A R -->
+<nav class="navbar navbar-default navbar-expand-lg custom-navbar" th:fragment="navbar">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="icon ion-md-menu"></span>
+    </button>
+
+    <small class="logo nav-logo-mobile"><a href="#" target="_blank">YXM<span class="pink">.</span></a></small>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="container">
+            <img th:src="@{/public/images/yxm.png}" width="30px" height="30px" alt="">
+            <small class="logo nav-logo-desktop"><a href="#" target="_blank">YXM_Game<span
+                    class="pink">.</span></a></small>
+            <ul class="navbar-nav ml-auto nav-right ">
+                <li class="nav-item nav-custom-link">
+                    <a class="nav-link" th:href="@{/}">首页 </a>
+                </li>
+                <li class="nav-item nav-custom-link">
+                    <a class="nav-link" th:href="@{/library/grid}">游戏商城 </a>
+                </li>
+                <li class="nav-item nav-custom-link">
+                    <a class="nav-link" th:href="@{/user/library}">我的游戏库 </a>
+                </li>
+                <li class="nav-item nav-custom-link">
+                    <a class="nav-link" th:href="@{/user/details}">我的信息 </a>
+                </li>
+                <li class="nav-item nav-custom-link" th:if="${session.user == null}">
+                    <a class="nav-link" th:href="@{/user/login}">登录</a>
+                </li>
+                <li class="nav-item nav-custom-link" th:if="${session.user != null}" role="presentation">
+                    <a class="nav-link" th:href="@{/user/logout}"><span aria-hidden="true">注销</span></a>
+                </li>
+                <li class="nav-item nav-custom-link" th:if="${session.user != null}" role="presentation">
+                    <a class="nav-link" th:href="@{/user/details}" th:text="${session.user.name}"><span
+                            aria-hidden="true"></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- E N D  N A V B A R -->
+<!--adminSider-->
+<!--<nav class="col-md-1 d-none d-md-block  sidebar"  id="sidebar">-->
+<!--    <div class="sidebar-sticky">-->
+<!--        <ul class="nav flex-column">-->
+<!--            <li class="nav-item" >-->
+<!--                <a class="nav-link" href="#"-->
+<!--                   th:class="${activeUri=='games'?'nav-link active':'nav-link'}"-->
+<!--                   th:href="@{/admin/game}">-->
+<!--                    <span data-feather="file"></span>-->
+<!--                    游戏管理-->
+<!--                </a>-->
+<!--            </li>-->
+<!--            <li class="nav-item" >-->
+<!--                <a class="nav-link" href="#"-->
+<!--                   th:class="${activeUri=='platform'?'nav-link active':'nav-link'}"-->
+<!--                   th:href="@{/admin/platform}">-->
+<!--                    <span data-feather="file"></span>-->
+<!--                    平台管理-->
+<!--                </a>-->
+<!--            </li>-->
+<!--            <li class="nav-item" >-->
+<!--                <a  th:class="${activeUri=='category'?'nav-link active':'nav-link'}" th:href="@{/admin/category/}">-->
+<!--                    <span data-feather="shopping-cart"></span>-->
+<!--                    分类管理-->
+<!--                </a>-->
+<!--            </li>-->
+<!--            <li class="nav-item" >-->
+<!--                <a class="nav-link" href="#"-->
+<!--                   th:class="${activeUri=='users'? 'nav-link active':'nav-link'}"-->
+<!--                   th:href="@{/admin/users}">-->
+<!--                    <span data-feather="users"></span>-->
+<!--                    用户管理-->
+<!--                </a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</nav>-->
+<!--newNav-->
+<div class="btn-group btn-group-justified row" id="sidebar" role="group" aria-label="...">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-2 btn-group">
+        <a class="btn btn-default" href=""
+           th:class="${activeUri=='games'?'nav-link active':'nav-link'}"
+           th:href="@{/admin/game}">游戏管理</a>
+    </div>
+    <div class="col-md-2 btn-group">
+        <a class="btn btn-default" href=""
+           th:class="${activeUri=='platform'?'nav-link active':'nav-link'}"
+           th:href="@{/admin/platform}">平台管理</a>
+    </div>
+    <div class="col-md-2 btn-group">
+        <a class="btn btn-default" href=""
+           th:class="${activeUri=='category'?'nav-link active':'nav-link'}" th:href="@{/admin/category/}"
+        >分类管理</a>
+    </div>
+    <div class="col-md-2 btn-group">
+        <a class="btn btn-default" href=""
+           th:class="${activeUri=='users'? 'nav-link active':'nav-link'}"
+           th:href="@{/admin/users}">用户管理</a>
+    </div>
+
+
+</div>
+<!--endadminSider-->
+<!--Carousel-->
+<section id="Carousel" th:fragment="Carousel">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-md-12 col-lg-12">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+
+                    </ol>
+                    <div class="carousel-inner ">
+                        <div class="carousel-item active">
+                            <a th:href="'/library/game/'+${hotGames[0].id}"> <img
+                                    th:src="'/public/images/'+${hotGames[0].src}" width="" height="400px"
+                                    class="d-block w-100" alt="..."></a>
+                        </div>
+                        <div class="carousel-item ">
+                            <a th:href="'/library/game/'+${hotGames[1].id}"> <img
+                                    th:src="'/public/images/'+${hotGames[1].src}" width="" height="400px"
+                                    class="d-block w-100" alt="..."></a>
+                        </div>
+                        <div class="carousel-item">
+                            <a th:href="'/library/game/'+${hotGames[2].id}"> <img
+                                    th:src="'/public/images/'+${hotGames[2].src}" width="" height="400px"
+                                    class="d-block w-100" alt="..."></a>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!--END Carousel-->
+
+<!-- P O R T F O L I O -->
+<section id="portfolio" th:fragment="Game1">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-block">
+                    <h2><b class="underline-gold">热门</b>游戏</h2>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3 spacer-md  game1" th:each="hotGames:${hotGames}">
+                <a href="#" th:href="'/library/game/'+${hotGames.id}">
+                    <img th:src="'/public/images/'+${hotGames.src}" width="320px" height="200px" class="portfolio-img "
+                         alt="image">
+                </a>
+                <span th:text="${hotGames.category.name}">Branding - Development</span>
+                <h4 th:text="${hotGames.name}">Name</h4>
+
+                <p class="text text-hide" th:text="${hotGames.details}">Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. <b class="bold-it">Aliquam ut placerat libero</b>, accumsan lacinia libero.
+                    Pellentesque ipsum turpis, vehicula eget nunc et.</p>
+
+
+                <a href="#" th:href="'/library/game/'+${hotGames.id}" class="btn-portfolio">购买</a>
+            </div>
+        </div><!-- end row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-block">
+                    <h2><b class="underline-gold">最新</b>上架</h2>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-6  spacer-md portfolio-content game2" th:each="newGames:${newGames}">
+                <a th:href="'/library/game/'+${newGames.id}">
+                    <img th:src="'/public/images/'+${newGames.src}" class="portfolio-img img-fluid" alt="image">
+                </a>
+                <span th:text="${newGames.category.name}">Marketing - Branding</span>
+                <h3 th:text="${newGames.name}">Reinventing The Smart Watch</h3>
+                <h5 th:text="${#dates.format(newGames.pubdate,'yyyy-MM-dd')}"></h5>
+                <p class="text text-hide" th:text="${newGames.details}">Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. <b class="bold-it">Aliquam ut placerat libero</b>, accumsan lacinia libero.
+                    Pellentesque ipsum turpis, vehicula eget nunc et.</p>
+                <a href="#" th:href="'/library/game/'+${newGames.id}" class="btn-portfolio">购买</a>
+            </div>
+
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section>
+<!-- E N D  P O R T F O L I O -->
+<!-- B L O G -->
+<section id="blog" th:fragment="Game2">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 ">
+                <h4 class="title-block"> 最近购买</h4>
+                <div class="divider"></div>
+                <div id="post-one" th:each="buyGames:${buyGames}">
+                    <div style="float: left;">
+                        <a href="" th:href="@{/library/game/__${buyGames.id}__}">
+                            <img th:src="'/public/images/'+${buyGames.src}" src="/public/images/image-01.jpg"
+                                 width="200" alt="">
+                            <p></p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                <div class="spacer-sm"></div>
+                <a th:href="@{/user/library}" class="btn-blog">View All Game Entries</a>
+            </div>
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section>
+<!--  E N D  B L O G  -->
+
+<!--  F O O T E R  -->
+<footer th:fragment="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div clas="col-md-12">
+                <h4>We're the Yxm<span class="pink">.</span></h4>
+                <p>Call us on 133 2170 0712 or Contact Us for more information</p>
+                <form action="/library/" method="get" class="col-md-5">
+                    <input type="text" name="gameName" class="text" value="" placeholder="输入要搜索的游戏名">
+                    <input type="submit" value="搜索">
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div><!-- end row -->
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-md-6 col-lg-3">
+                <h6>Selected Cases</h6>
+                <ul>
+                    <li><a href="">Nike</a></li>
+                    <li><a href="">Real Madrid</a></li>
+                    <li><a href="">Samsung</a></li>
+                    <li><a href="">Adidas</a></li>
+                    <li><a href="">Pepsi</a></li>
+                </ul>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <h6 class="mg-top-sm"> Our Specialties</h6>
+                <ul>
+                    <li><a href="">UX & UI Design</a></li>
+                    <li><a href="">Web & Responsive</a></li>
+                    <li><a href="">Branding & Identity</a></li>
+                    <li><a href="">Art Direction</a></li>
+                    <li><a href="">Motion Tracking</a></li>
+                </ul>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <h6 class="mg-top-sm">Blog</h6>
+                <ul>
+                    <li><a href="">Get High Quality Backlinks</a></li>
+                    <li><a href="">Top Google Searches</a></li>
+                    <li><a href="">Avoid Google Penalties</a></li>
+                    <li><a href="">White Hat SEO Tips</a></li>
+                    <li><a href="">Google Trends</a></li>
+                </ul>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <h6 class="mg-top-xs">Company</h6>
+                <ul>
+                    <li><a href="">Articles</a></li>
+                    <li><a href="">Careers</a></li>
+                    <li><a href="">Vision</a></li>
+                    <li><a href="">Work</a></li>
+                    <li><a href="">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col-md-6 col-xs-12">
+                <small><a href="#" target="_blank">The New Black<span class="pink">.</span></a> - More Templates <a
+                        href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a
+                        href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></small>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <a href="#"><i class="icon ion-logo-dribbble"></i></a>
+                <a href="#"><i class="icon ion-logo-linkedin"></i></a>
+                <a href="#"><i class="icon ion-logo-facebook"></i></a>
+                <a href="#"><i class="icon ion-logo-instagram"></i></a>
+                <a href="#"><i class="icon ion-logo-chrome"></i></a>
+            </div>
+        </div><!-- end row -->
+    </div><!-- end container -->
+</footer>
+<!--  E N D  F O O T E R  -->
+
+
+</body>
+</html>

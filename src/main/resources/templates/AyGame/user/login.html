@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="AyGame/common/ayhead :: commonHead('Aygame')">
+</head>
+<style>
+  .login-page{
+    background:url(/public/newIndexStyle/images/ryzh.png) no-repeat center / cover;
+
+  }
+</style>
+<body class="login-page" >
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-md-12 col-lg-4">
+      <div class="card login-box-container">
+        <div class="card-body">
+          <div class="authent-logo">
+            <a href="#">Ayiyay</a>
+          </div>
+          <div class="authent-text">
+            <p>欢迎来到 Ayiyay</p>
+            <p>请登录您的帐户。</p>
+          </div>
+          <form action="/user/login" method="post" th:object="${user}">
+            <div class="mb-3">
+              <div class="form-floating">
+              <!--  <span class="input-group-addon col-md-3" id="login-addon1">用户名</span>-->
+                <input type="text" name="name" id="name" class="form-control col-md-8" placeholder="Username"
+                       required="required"
+                       th:field="*{name}"
+                       aria-describedby="sizing-addon1">
+                <span class="label label-warning " th:if="${#fields.hasErrors('name')}"
+                      th:errors="${#fields.errors('name')}"></span>
+                <label for="name">用户名</label>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="form-floating">
+        <!--        <span class="input-group-addon col-md-3" id="login-addon2">密 码</span>-->
+                <input type="password" name="password" id="floatingPassword" class="form-control  col-md-8" placeholder="Password"
+                       required="required" th:field="*{password}"
+                       aria-describedby="sizing-addon2">
+                <span class="label label-warning" th:if="${#fields.hasErrors('password')}"
+                      th:errors="${#fields.errors('password')}"></span>
+                <label for="floatingPassword">密码</label>
+              </div>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-info m-b-xs" th:text="#{user.login}">Sign In</button>
+             <!-- <button class="btn btn-primary">Facebook</button>-->
+            </div>
+          </form>
+          <div class="alert alert-warning" role="alert" th:if="${message != null}">
+            <strong th:text="${message}"></strong>
+          </div>
+          <div class="authent-reg">
+            <p>没有注册？ <a href="/user/register">创建一个帐户</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Javascripts -->
+<div th:replace="AyGame/common/ayJs :: jscode"></div>
+</body>
+</html>
